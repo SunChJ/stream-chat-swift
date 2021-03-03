@@ -26,17 +26,11 @@ public final class MagazineLayout: UICollectionViewLayout {
     
     // MARK: Lifecycle
     
-    /// - Parameters:
-    ///   - flipsHorizontallyInOppositeLayoutDirection: Indicates whether the horizontal coordinate
-    ///     system is automatically flipped at appropriate times. In practice, this is used to support
-    ///     right-to-left layout.
-    public init(flipsHorizontallyInOppositeLayoutDirection: Bool = true) {
-        _flipsHorizontallyInOppositeLayoutDirection = flipsHorizontallyInOppositeLayoutDirection
+    override public required init() {
         super.init()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        _flipsHorizontallyInOppositeLayoutDirection = true
         super.init(coder: aDecoder)
     }
     
@@ -44,10 +38,6 @@ public final class MagazineLayout: UICollectionViewLayout {
     
     override public class var invalidationContextClass: AnyClass {
         return MagazineLayoutInvalidationContext.self
-    }
-    
-    override public var flipsHorizontallyInOppositeLayoutDirection: Bool {
-        return _flipsHorizontallyInOppositeLayoutDirection
     }
     
     override public var collectionViewContentSize: CGSize {
@@ -93,13 +83,6 @@ public final class MagazineLayout: UICollectionViewLayout {
         // Save the previous collection view width if necessary
         if prepareActions.contains(.cachePreviousWidth) {
             cachedCollectionViewWidth = currentCollectionView.bounds.width
-        }
-        
-        if
-            prepareActions.contains(.updateLayoutMetrics) ||
-                prepareActions.contains(.recreateSectionModels)
-        {
-            hasPinnedHeaderOrFooter = false
         }
         
         // Update layout metrics if necessary
@@ -242,7 +225,6 @@ public final class MagazineLayout: UICollectionViewLayout {
         modelState.clearInProgressBatchUpdateState()
         
         itemLayoutAttributesForPendingAnimations.removeAll()
-        supplementaryViewLayoutAttributesForPendingAnimations.removeAll()
         
         super.finalizeCollectionViewUpdates()
     }
@@ -370,8 +352,7 @@ public final class MagazineLayout: UICollectionViewLayout {
     }
     
     override public func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        return  collectionView?.bounds.size.width != .some(newBounds.size.width) ||
-            hasPinnedHeaderOrFooter
+        collectionView?.bounds.size.width != .some(newBounds.size.width)
     }
     
     override public func invalidationContext(
@@ -509,8 +490,6 @@ public final class MagazineLayout: UICollectionViewLayout {
         })
     }()
     
-    private let _flipsHorizontallyInOppositeLayoutDirection: Bool
-    
     private var cachedCollectionViewWidth: CGFloat?
     
     // These properties are used to prevent scroll jumpiness due to self-sizing after rotation; see
@@ -519,19 +498,13 @@ public final class MagazineLayout: UICollectionViewLayout {
     private var lastSizedElementMinY: CGFloat?
     private var lastSizedElementPreferredHeight: CGFloat?
     
-    private var hasPinnedHeaderOrFooter: Bool = false
-    
     // Cached layout attributes; lazily populated using information from the model state.
     private var itemLayoutAttributes = [ElementLocation: UICollectionViewLayoutAttributes]()
-    private var headerLayoutAttributes = [ElementLocation: UICollectionViewLayoutAttributes]()
-    private var footerLayoutAttributes = [ElementLocation: UICollectionViewLayoutAttributes]()
-    private var backgroundLayoutAttributes = [ElementLocation: UICollectionViewLayoutAttributes]()
     
     // These properties are used to keep the layout attributes copies used for insert/delete
     // animations up-to-date as items are self-sized. If we don't keep these copies up-to-date, then
     // animations will start from the estimated height.
     private var itemLayoutAttributesForPendingAnimations = [IndexPath: UICollectionViewLayoutAttributes]()
-    private var supplementaryViewLayoutAttributesForPendingAnimations = [IndexPath: UICollectionViewLayoutAttributes]()
     
     private struct PrepareActions: OptionSet {
         let rawValue: UInt

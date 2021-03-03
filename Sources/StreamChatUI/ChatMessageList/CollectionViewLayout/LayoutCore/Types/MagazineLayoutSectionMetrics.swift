@@ -57,17 +57,6 @@ struct MagazineLayoutSectionMetrics: Equatable {
     
     var verticalSpacing: CGFloat
     
-    static func defaultSectionMetrics(
-        forCollectionViewWidth width: CGFloat)
-    -> MagazineLayoutSectionMetrics
-    {
-        return MagazineLayoutSectionMetrics(
-            collectionViewWidth: width,
-            collectionViewContentInset: .zero,
-            verticalSpacing: MagazineLayout.Default.VerticalSpacing
-        )
-    }
-    
     // MARK: Private
     
     private let collectionViewWidth: CGFloat
