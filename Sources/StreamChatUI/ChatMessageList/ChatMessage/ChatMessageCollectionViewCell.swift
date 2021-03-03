@@ -4,7 +4,6 @@
 
 import StreamChat
 import UIKit
-import MagazineLayout
 
 public typealias СhatMessageCollectionViewCell = _СhatMessageCollectionViewCell<NoExtraData>
 

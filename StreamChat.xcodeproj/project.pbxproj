@@ -61,7 +61,6 @@
 		692A563525ECF83A00E887BD /* MessageListScrollPreservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692A563425ECF83A00E887BD /* MessageListScrollPreservation.swift */; };
 		692A567225ED032F00E887BD /* ChatMessageListCollectionViewLayout_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692A564425ED016600E887BD /* ChatMessageListCollectionViewLayout_Tests.swift */; };
 		692A568225ED058700E887BD /* MessageListScrollPreservation_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692A568125ED058700E887BD /* MessageListScrollPreservation_Tests.swift */; };
-		693EB1B125EF2D210046098B /* MagazineLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 693EB1B025EF2D210046098B /* MagazineLayout */; };
 		7900452625374CA20096ECA1 /* User+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7900452525374CA20096ECA1 /* User+SwiftUI.swift */; };
 		7908820625432B7200896F03 /* StreamChatUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 790881FD25432B7200896F03 /* StreamChatUI.framework */; };
 		7908821225432B7200896F03 /* StreamChatUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 790881FD25432B7200896F03 /* StreamChatUI.framework */; };
@@ -1739,7 +1738,6 @@
 			files = (
 				799ADAAF2563FFA1006D43F9 /* Nuke in Frameworks */,
 				DB823107259C271C00E7D7FE /* SwiftyGif in Frameworks */,
-				693EB1B125EF2D210046098B /* MagazineLayout in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3686,7 +3684,6 @@
 			packageProductDependencies = (
 				799ADAAE2563FFA1006D43F9 /* Nuke */,
 				DB823106259C271C00E7D7FE /* SwiftyGif */,
-				693EB1B025EF2D210046098B /* MagazineLayout */,
 			);
 			productName = StreamChatUI;
 			productReference = 790881FD25432B7200896F03 /* StreamChatUI.framework */;
@@ -3914,7 +3911,6 @@
 				799ADAAD2563FFA1006D43F9 /* XCRemoteSwiftPackageReference "Nuke" */,
 				DB823105259C271C00E7D7FE /* XCRemoteSwiftPackageReference "SwiftyGif" */,
 				AD472EF625C425FB00A96E70 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
-				693EB1AF25EF2D210046098B /* XCRemoteSwiftPackageReference "MagazineLayout" */,
 			);
 			productRefGroup = 8AD5EC9022E9A3E8005CFAC9 /* Products */;
 			projectDirPath = "";
@@ -6053,14 +6049,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		693EB1AF25EF2D210046098B /* XCRemoteSwiftPackageReference "MagazineLayout" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:airbnb/MagazineLayout.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.6.3;
-			};
-		};
 		799ADAAD2563FFA1006D43F9 /* XCRemoteSwiftPackageReference "Nuke" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kean/Nuke";
@@ -6096,11 +6084,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		693EB1B025EF2D210046098B /* MagazineLayout */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 693EB1AF25EF2D210046098B /* XCRemoteSwiftPackageReference "MagazineLayout" */;
-			productName = MagazineLayout;
-		};
 		79940B97258398D200791EAE /* Nuke */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 799ADAAD2563FFA1006D43F9 /* XCRemoteSwiftPackageReference "Nuke" */;

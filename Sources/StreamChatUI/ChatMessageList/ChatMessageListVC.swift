@@ -4,7 +4,6 @@
 
 import StreamChat
 import UIKit
-import MagazineLayout
 
 public protocol _ChatMessageListVCDataSource: AnyObject {
     associatedtype ExtraData: ExtraDataTypes
@@ -36,7 +35,7 @@ public typealias ChatMessageListVC = _ChatMessageListVC<NoExtraData>
 
 open class _ChatMessageListVC<ExtraData: ExtraDataTypes>: _ViewController,
     UICollectionViewDataSource,
-    UICollectionViewDelegateMagazineLayout,
+    UICollectionViewDelegate,
     UIConfigProvider,
     _ChatMessageActionsVCDelegate {
     public struct DataSource {
@@ -238,72 +237,6 @@ open class _ChatMessageListVC<ExtraData: ExtraDataTypes>: _ViewController,
     }
 
     // MARK: - UICollectionViewDelegate
-    
-    public func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeModeForItemAt indexPath: IndexPath
-    ) -> MagazineLayoutItemSizeMode {
-        let widthMode = MagazineLayoutItemWidthMode.fullWidth(respectsHorizontalInsets: false)
-        let heightMode = MagazineLayoutItemHeightMode.dynamic
-        return MagazineLayoutItemSizeMode(widthMode: widthMode, heightMode: heightMode)
-    }
-    
-    public func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        visibilityModeForHeaderInSectionAtIndex index: Int
-    ) -> MagazineLayoutHeaderVisibilityMode {
-        return .visible(heightMode: .dynamic, pinToVisibleBounds: true)
-    }
-    
-    public func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        visibilityModeForFooterInSectionAtIndex index: Int
-    ) -> MagazineLayoutFooterVisibilityMode {
-        return .visible(heightMode: .dynamic, pinToVisibleBounds: false)
-    }
-    
-    public func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        visibilityModeForBackgroundInSectionAtIndex index: Int
-    ) -> MagazineLayoutBackgroundVisibilityMode {
-        return .hidden
-    }
-    
-    public func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        horizontalSpacingForItemsInSectionAtIndex index: Int
-    ) -> CGFloat {
-        return  12
-    }
-    
-    public func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        verticalSpacingForElementsInSectionAtIndex index: Int
-    ) -> CGFloat {
-        return  12
-    }
-    
-    public func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        insetsForSectionAtIndex index: Int
-    ) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 8, bottom: 24, right: 8)
-    }
-    
-    public func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        insetsForItemsInSectionAtIndex index: Int
-    ) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 24, left: 0, bottom: 24, right: 0)
-    }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.didSelectMessageAtIndex?(self, indexPath.row)

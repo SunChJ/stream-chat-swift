@@ -21,12 +21,12 @@ open class MessageListMostRecentMessagePreservation: MessageListScrollPreservati
     }
     
     open func prepareForUpdates(in layout: ChatMessageListCollectionViewLayout) {
-//        mostRecentMessageWasVisible = layout.collectionView?.indexPathsForVisibleItems.contains(layout.mostRecentItem) ?? false
+        mostRecentMessageWasVisible = layout.collectionView?.indexPathsForVisibleItems.contains(layout.mostRecentItem) ?? false
     }
     
     open func finalizeUpdates(in layout: ChatMessageListCollectionViewLayout, animated: Bool) {
         if mostRecentMessageWasVisible {
-//            layout.collectionView?.scrollToItem(at: layout.mostRecentItem, at: .bottom, animated: animated)
+            layout.collectionView?.scrollToItem(at: layout.mostRecentItem, at: .bottom, animated: animated)
         }
         
         mostRecentMessageWasVisible = false
