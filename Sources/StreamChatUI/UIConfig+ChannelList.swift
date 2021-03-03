@@ -20,7 +20,7 @@ public extension _UIConfig {
             _ChatChannelSwipeableListItemView<ExtraData>.self
 
         /// A `ChatChannelSwipeableListItemView` subclass view that shows channel information.
-        public var channelListItemView: _ChatChannelListItemView<ExtraData>.Type = _ChatChannelListItemView<ExtraData>.self
+        public var channelListItemView: _ChatChannelListItemViewBase<ExtraData>.Type = _ChatChannelListItemView<ExtraData>.self
 
         /// A `UICollectionViewCell` subclass that shows channel information.
         public var channelViewCell: _ChatChannelListCollectionViewCell<ExtraData>.Type =

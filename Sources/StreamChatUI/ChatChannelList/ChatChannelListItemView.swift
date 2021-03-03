@@ -8,14 +8,16 @@ import UIKit
 /// A `ChatChannelSwipeableListItemView` subclass view that shows channel information.
 public typealias ChatChannelListItemView = _ChatChannelListItemView<NoExtraData>
 
-/// A `ChatChannelSwipeableListItemView` subclass view that shows channel information.
-open class _ChatChannelListItemView<ExtraData: ExtraDataTypes>: _ChatChannelSwipeableListItemView<ExtraData> {
-    
+/// Base class of `ChatChannelListItemView`.
+open class _ChatChannelListItemViewBase<ExtraData: ExtraDataTypes>: _ChatChannelSwipeableListItemView<ExtraData> {
     /// The data this view component shows.
     public var content: (channel: _ChatChannel<ExtraData>?, currentUserId: UserId?) {
         didSet { updateContentIfNeeded() }
     }
-    
+}
+
+/// A `ChatChannelSwipeableListItemView` subclass view that shows channel information.
+open class _ChatChannelListItemView<ExtraData: ExtraDataTypes>: _ChatChannelListItemViewBase<ExtraData> {
     /// Properties tied to `ChatChannelListItemView` layout
     public struct Layout {
         /// Constraints of `timestampLabel`
