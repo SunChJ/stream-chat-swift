@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "MagazineLayout",
+        "repositoryURL": "git@github.com:airbnb/MagazineLayout.git",
+        "state": {
+          "branch": null,
+          "revision": "6f88742c282de208e48cb738a7a14b7dc2651701",
+          "version": "1.6.3"
+        }
+      },
+      {
         "package": "Nuke",
         "repositoryURL": "https://github.com/kean/Nuke",
         "state": {

@@ -4,6 +4,7 @@
 
 import StreamChat
 import UIKit
+import MagazineLayout
 
 public protocol _ChatMessageListVCDataSource: AnyObject {
     associatedtype ExtraData: ExtraDataTypes
@@ -35,7 +36,7 @@ public typealias ChatMessageListVC = _ChatMessageListVC<NoExtraData>
 
 open class _ChatMessageListVC<ExtraData: ExtraDataTypes>: _ViewController,
     UICollectionViewDataSource,
-    UICollectionViewDelegate,
+    UICollectionViewDelegateMagazineLayout,
     UIConfigProvider,
     _ChatMessageActionsVCDelegate {
     public struct DataSource {
@@ -58,10 +59,14 @@ open class _ChatMessageListVC<ExtraData: ExtraDataTypes>: _ViewController,
 
     public lazy var router = uiConfig.navigation.messageListRouter.init(rootViewController: self)
 
-    public private(set) lazy var collectionViewLayout = uiConfig
-        .messageList
-        .collectionLayout
-        .init()
+    public private(set) lazy var collectionViewLayout: ChatMessageListCollectionViewLayout = {
+        let layout = uiConfig
+            .messageList
+            .collectionLayout
+            .init()
+//        layout.settings.estimatedItemSize = CGSize(width: UIScreen.main.bounds.width, height: 200)
+        return layout
+    }()
     
     public private(set) lazy var collectionView: UICollectionView = {
         let collection = uiConfig.messageList.collectionView.init(layout: collectionViewLayout)
@@ -142,27 +147,30 @@ open class _ChatMessageListVC<ExtraData: ExtraDataTypes>: _ViewController,
         needsToScrollToMostRecentMessageAnimated = false
 
         // our collection is flipped, so (0; 0) item is most recent one
-        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .bottom, animated: animated)
+        collectionView.scrollToItem(at: IndexPath(item: collectionView.numberOfItems(inSection: 0)-1, section: 0), at: .bottom, animated: animated)
     }
 
     public func updateMessages(with changes: [ListChange<_ChatMessage<ExtraData>>], completion: ((Bool) -> Void)? = nil) {
-        collectionView.performBatchUpdates {
-            for change in changes {
-                switch change {
-                case let .insert(_, index):
-                    collectionView.insertItems(at: [index])
-                case let .move(_, fromIndex, toIndex):
-                    collectionView.moveItem(at: fromIndex, to: toIndex)
-                case let .remove(_, index):
-                    collectionView.deleteItems(at: [index])
-                case let .update(_, index):
-                    collectionView.reloadItems(at: [index])
+        let updates = { [collectionView] in
+            collectionView.performBatchUpdates {
+                for change in changes {
+                    switch change {
+                    case let .insert(_, index):
+                        collectionView.insertItems(at: [index])
+                    case let .move(_, fromIndex, toIndex):
+                        collectionView.moveItem(at: fromIndex, to: toIndex)
+                    case let .remove(_, index):
+                        collectionView.deleteItems(at: [index])
+                    case let .update(_, index):
+                        collectionView.reloadItems(at: [index])
+                    }
                 }
+            } completion: { flag in
+                completion?(flag)
+                self.scrollToMostRecentMessageIfNeeded()
             }
-        } completion: { flag in
-            completion?(flag)
-            self.scrollToMostRecentMessageIfNeeded()
         }
+        UIView.performWithoutAnimation(updates)
     }
     
     open func cellReuseIdentifierForMessage(_ message: _ChatMessageGroupPart<ExtraData>) -> String {
@@ -230,7 +238,73 @@ open class _ChatMessageListVC<ExtraData: ExtraDataTypes>: _ViewController,
     }
 
     // MARK: - UICollectionViewDelegate
-
+    
+    public func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeModeForItemAt indexPath: IndexPath
+    ) -> MagazineLayoutItemSizeMode {
+        let widthMode = MagazineLayoutItemWidthMode.fullWidth(respectsHorizontalInsets: false)
+        let heightMode = MagazineLayoutItemHeightMode.dynamic
+        return MagazineLayoutItemSizeMode(widthMode: widthMode, heightMode: heightMode)
+    }
+    
+    public func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        visibilityModeForHeaderInSectionAtIndex index: Int
+    ) -> MagazineLayoutHeaderVisibilityMode {
+        return .visible(heightMode: .dynamic, pinToVisibleBounds: true)
+    }
+    
+    public func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        visibilityModeForFooterInSectionAtIndex index: Int
+    ) -> MagazineLayoutFooterVisibilityMode {
+        return .visible(heightMode: .dynamic, pinToVisibleBounds: false)
+    }
+    
+    public func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        visibilityModeForBackgroundInSectionAtIndex index: Int
+    ) -> MagazineLayoutBackgroundVisibilityMode {
+        return .hidden
+    }
+    
+    public func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        horizontalSpacingForItemsInSectionAtIndex index: Int
+    ) -> CGFloat {
+        return  12
+    }
+    
+    public func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        verticalSpacingForElementsInSectionAtIndex index: Int
+    ) -> CGFloat {
+        return  12
+    }
+    
+    public func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetsForSectionAtIndex index: Int
+    ) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 8, bottom: 24, right: 8)
+    }
+    
+    public func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetsForItemsInSectionAtIndex index: Int
+    ) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 24, left: 0, bottom: 24, right: 0)
+    }
+    
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.didSelectMessageAtIndex?(self, indexPath.row)
     }

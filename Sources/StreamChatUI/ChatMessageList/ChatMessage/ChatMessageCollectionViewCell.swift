@@ -4,6 +4,7 @@
 
 import StreamChat
 import UIKit
+import MagazineLayout
 
 public typealias СhatMessageCollectionViewCell = _СhatMessageCollectionViewCell<NoExtraData>
 
@@ -45,24 +46,36 @@ open class _СhatMessageCollectionViewCell<ExtraData: ExtraDataTypes>: _Collecti
     override open func preferredLayoutAttributesFitting(
         _ layoutAttributes: UICollectionViewLayoutAttributes
     ) -> UICollectionViewLayoutAttributes {
-        let preferredAttributes = super.preferredLayoutAttributesFitting(layoutAttributes)
-
-        let targetSize = CGSize(
-            width: layoutAttributes.frame.width,
-            height: UIView.layoutFittingCompressedSize.height
-        )
-        
-        let prototype = prototypes[Self.reuseId] as? Self ?? Self()
-        prototypes[Self.reuseId] = prototype
-        prototype.message = message
-        prototype.streamSetup()
-        preferredAttributes.frame.size = prototype.contentView.systemLayoutSizeFitting(
-            targetSize,
+//        guard let attributes = layoutAttributes as? MagazineLayoutCollectionViewLayoutAttributes else {
+//            assertionFailure("`layoutAttributes` must be an instance of `MagazineLayoutCollectionViewLayoutAttributes`")
+//            return super.preferredLayoutAttributesFitting(layoutAttributes)
+//        }
+        let shouldVerticallySelfSize = true
+        // In some cases, `contentView`'s required width and height constraints
+        // (created from its auto-resizing mask) will not have the correct constants before invoking
+        // `systemLayoutSizeFitting(...)`, causing the cell to size incorrectly. This seems to be a
+        // UIKit bug.
+        // https://openradar.appspot.com/radar?id=5025850143539200
+        // The issue seems most common when the collection view's bounds change (on rotation).
+        // We correct for this by updating `contentView.bounds`, which updates the constants used by the
+        // width and height constraints created by the `contentView`'s auto-resizing mask.
+        if contentView.bounds.width != layoutAttributes.size.width {
+            contentView.bounds.size.width = layoutAttributes.size.width
+        }
+        if
+            !shouldVerticallySelfSize &&
+                contentView.bounds.height != layoutAttributes.size.height
+        {
+            contentView.bounds.size.height = layoutAttributes.size.height
+        }
+        let size = super.systemLayoutSizeFitting(
+            layoutAttributes.size,
             withHorizontalFittingPriority: .required,
             verticalFittingPriority: .fittingSizeLevel
         )
-
-        return preferredAttributes
+        layoutAttributes.size = size
+        return layoutAttributes
+        
     }
 }
 
