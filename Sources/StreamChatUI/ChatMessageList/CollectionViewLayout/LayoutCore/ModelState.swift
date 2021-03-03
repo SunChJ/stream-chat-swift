@@ -633,7 +633,7 @@ final class ModelState {
     }
     
     private func invalidateEntireSectionMaxYsCache() {
-        guard sectionMaxYsCache.count > 0 else { return }
+        guard !sectionMaxYsCache.isEmpty else { return }
         
         invalidateSectionMaxYsCacheForSectionIndices(startingAt: 0)
     }

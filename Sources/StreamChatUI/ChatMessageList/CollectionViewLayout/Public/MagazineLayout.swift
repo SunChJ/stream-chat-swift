@@ -332,13 +332,6 @@ public final class MagazineLayout: UICollectionViewLayout {
                 modelState.sectionIndicesToInsert.contains(itemIndexPath.section)
         {
             let attributes = layoutAttributesForItem(at: itemIndexPath)?.copy() as? UICollectionViewLayoutAttributes
-            attributes.map {
-                delegateMagazineLayout?.collectionView(
-                    currentCollectionView,
-                    layout: self,
-                    initialLayoutAttributesForInsertedItemAt: itemIndexPath,
-                    byModifying: $0)
-            }
             itemLayoutAttributesForPendingAnimations[itemIndexPath] = attributes
             return attributes
         } else if
@@ -361,15 +354,7 @@ public final class MagazineLayout: UICollectionViewLayout {
             modelState.itemIndexPathsToDelete.contains(itemIndexPath) ||
                 modelState.sectionIndicesToDelete.contains(itemIndexPath.section)
         {
-            let attributes = previousLayoutAttributesForItem(at: itemIndexPath)
-            attributes.map {
-                delegateMagazineLayout?.collectionView(
-                    currentCollectionView,
-                    layout: self,
-                    finalLayoutAttributesForRemovedItemAt: itemIndexPath,
-                    byModifying: $0)
-            }
-            return attributes
+            return previousLayoutAttributesForItem(at: itemIndexPath)
         } else if
             let movedItemID = modelState.idForItemModel(at: itemIndexPath, .beforeUpdates),
             let finalIndexPath = modelState.indexPathForItemModel(
@@ -594,21 +579,13 @@ public final class MagazineLayout: UICollectionViewLayout {
             height: currentCollectionView.bounds.height - contentInset.top - contentInset.bottom + refreshControlHeight)
     }
     
-    private var delegateMagazineLayout: UICollectionViewDelegateMagazineLayout? {
-        return currentCollectionView.delegate as? UICollectionViewDelegateMagazineLayout
-    }
-    
     private func metricsForSection(atIndex sectionIndex: Int) -> MagazineLayoutSectionMetrics {
-        guard let delegateMagazineLayout = delegateMagazineLayout else {
-            return MagazineLayoutSectionMetrics.defaultSectionMetrics(
-                forCollectionViewWidth: currentCollectionView.bounds.width)
-        }
-        
-        return MagazineLayoutSectionMetrics(
+        MagazineLayoutSectionMetrics(
             forSectionAtIndex: sectionIndex,
             in: currentCollectionView,
             layout: self,
-            delegate: delegateMagazineLayout)
+            verticalSpacing: Default.VerticalSpacing
+        )
     }
     
     private func sectionModelForSection(atIndex sectionIndex: Int) -> SectionModel {

@@ -24,7 +24,7 @@ struct MagazineLayoutSectionMetrics: Equatable {
         forSectionAtIndex sectionIndex: Int,
         in collectionView: UICollectionView,
         layout: UICollectionViewLayout,
-        delegate: UICollectionViewDelegateMagazineLayout)
+        verticalSpacing: CGFloat)
     {
         collectionViewWidth = collectionView.bounds.width
         
@@ -34,10 +34,7 @@ struct MagazineLayoutSectionMetrics: Equatable {
             collectionViewContentInset = collectionView.contentInset
         }
         
-        verticalSpacing = delegate.collectionView(
-            collectionView,
-            layout: layout,
-            verticalSpacingForElementsInSectionAtIndex: sectionIndex)
+        self.verticalSpacing = verticalSpacing
     }
     
     private init(
