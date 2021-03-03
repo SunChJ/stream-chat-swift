@@ -146,7 +146,7 @@ open class _ChatMessageListVC<ExtraData: ExtraDataTypes>: _ViewController,
         needsToScrollToMostRecentMessageAnimated = false
 
         // our collection is flipped, so (0; 0) item is most recent one
-        collectionView.scrollToItem(at: IndexPath(item: collectionView.numberOfItems(inSection: 0)-1, section: 0), at: .bottom, animated: animated)
+//        collectionView.scrollToItem(at: IndexPath(item: collectionView.numberOfItems(inSection: 0)-1, section: 0), at: .bottom, animated: animated)
     }
 
     public func updateMessages(with changes: [ListChange<_ChatMessage<ExtraData>>], completion: ((Bool) -> Void)? = nil) {

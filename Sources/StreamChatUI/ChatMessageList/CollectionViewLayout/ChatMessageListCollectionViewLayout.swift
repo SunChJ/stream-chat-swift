@@ -4,12 +4,14 @@
 
 import UIKit
 
+public typealias ChatMessageListCollectionViewLayout = MagazineLayout
+
 /// Custom Table View like layout that position item at index path 0-0 on bottom of the list.
 ///
 /// Unlike `UICollectionViewFlowLayout` we ignore some invalidation calls and persist items attributes between updates.
 /// This resolves problem when on item reload layout would change content offset and user ends up on completely different item.
 /// Layout intended for batch updates and right now I have no idea how it will react to `collectionView.reloadData()`.
-open class ChatMessageListCollectionViewLayout: UICollectionViewLayout {
+open class _ChatMessageListCollectionViewLayout: UICollectionViewLayout {
     open class InvalidationContext: UICollectionViewLayoutInvalidationContext {
         var updatedAttributes: UICollectionViewLayoutAttributes?
         
