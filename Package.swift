@@ -272,6 +272,7 @@ var streamChatUIFilesExcluded: [String] { [
     "ChatMessageList/MessageComposer/__Snapshots__/ChatMessageComposerSuggestionsViewController_Tests/test_mentions_emptyAppearance.default-light.png",
     "ChatMessageList/MessageComposer/__Snapshots__/ChatMessageComposerSuggestionsViewController_Tests/test_mentions_emptyAppearance.default-dark.png",
     "ChatMessageList/MessageComposer/__Snapshots__/ChatMessageComposerSuggestionsViewController_Tests/test_commands_appearanceCustomization_usingUIConfig.default-dark.png",
+    "UIConfig+SwiftUI_Tests.swift",
     "CommonViews/CurrentChatUserAvatarView_Tests.swift",
     "CommonViews/ChatChannelCreateNewButton_Tests.swift",
     "CommonViews/__Snapshots__/ChatChannelCreateNewButton_Tests/test_isDisabled.default-light.png",
