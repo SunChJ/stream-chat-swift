@@ -120,6 +120,26 @@ class ChatChannelSwipeableListItemView_Tests: XCTestCase {
         
         XCTAssert(deleteButtonTapped)
     }
+
+    func test_ItemView_usesCorrectUIConfigTypes_whenCustomTypesDefined() {
+        // Create default ChatChannelListVC which has everything default from `UIConfig`
+        let itemView = ChatChannelSwipeableListItemView()
+
+        // Create new config to set custom types...
+        var customConfig = itemView.uiConfig
+
+        class OtherButton: UIButton { }
+        class OtherStackView: UIStackView { }
+
+        customConfig.channelList.swipeableItemSubviews.actionButtonStack = OtherStackView.self
+        customConfig.channelList.swipeableItemSubviews.deleteButton = OtherButton.self
+
+        itemView.uiConfig = customConfig
+
+        XCTAssert(itemView.deleteButton is OtherButton)
+        XCTAssert(itemView.actionButtonStack is OtherStackView)
+    }
+    
 }
 
 private extension ChatChannelSwipeableListItemView {
