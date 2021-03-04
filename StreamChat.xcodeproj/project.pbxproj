@@ -828,8 +828,7 @@
 		F8CF04D625EFB0A500077209 /* SlackChatChannelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CF04D525EFB0A500077209 /* SlackChatChannelViewController.swift */; };
 		F8CF04E025EFB40D00077209 /* SlackChatChannelUnreadCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CF04DF25EFB40D00077209 /* SlackChatChannelUnreadCountView.swift */; };
 		F8CF04F025EFC33600077209 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CF04EF25EFC33600077209 /* AppDelegate.swift */; };
-		F8CF04F225EFC33600077209 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CF04F125EFC33600077209 /* SceneDelegate.swift */; };
-		F8CF04F425EFC33600077209 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CF04F325EFC33600077209 /* ViewController.swift */; };
+		F8CF04F425EFC33600077209 /* MessengerChatChannelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CF04F325EFC33600077209 /* MessengerChatChannelListViewController.swift */; };
 		F8CF04F725EFC33600077209 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8CF04F525EFC33600077209 /* Main.storyboard */; };
 		F8CF04F925EFC33B00077209 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8CF04F825EFC33B00077209 /* Assets.xcassets */; };
 		F8CF04FC25EFC33B00077209 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8CF04FA25EFC33B00077209 /* LaunchScreen.storyboard */; };
@@ -1808,8 +1807,7 @@
 		F8CF04DF25EFB40D00077209 /* SlackChatChannelUnreadCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlackChatChannelUnreadCountView.swift; sourceTree = "<group>"; };
 		F8CF04ED25EFC33500077209 /* MessengerClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MessengerClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8CF04EF25EFC33600077209 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F8CF04F125EFC33600077209 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F8CF04F325EFC33600077209 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F8CF04F325EFC33600077209 /* MessengerChatChannelListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerChatChannelListViewController.swift; sourceTree = "<group>"; };
 		F8CF04F625EFC33600077209 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F8CF04F825EFC33B00077209 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F8CF04FB25EFC33B00077209 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -3771,8 +3769,7 @@
 			isa = PBXGroup;
 			children = (
 				F8CF04EF25EFC33600077209 /* AppDelegate.swift */,
-				F8CF04F125EFC33600077209 /* SceneDelegate.swift */,
-				F8CF04F325EFC33600077209 /* ViewController.swift */,
+				F8CF04F325EFC33600077209 /* MessengerChatChannelListViewController.swift */,
 				F8CF04F525EFC33600077209 /* Main.storyboard */,
 				F8CF04F825EFC33B00077209 /* Assets.xcassets */,
 				F8CF04FA25EFC33B00077209 /* LaunchScreen.storyboard */,
@@ -5210,9 +5207,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8CF04F425EFC33600077209 /* ViewController.swift in Sources */,
+				F8CF04F425EFC33600077209 /* MessengerChatChannelListViewController.swift in Sources */,
 				F8CF04F025EFC33600077209 /* AppDelegate.swift in Sources */,
-				F8CF04F225EFC33600077209 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
