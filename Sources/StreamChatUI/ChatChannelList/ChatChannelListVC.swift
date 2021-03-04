@@ -50,11 +50,12 @@ open class _ChatChannelListVC<ExtraData: ExtraDataTypes>: _ViewController,
         controller.synchronize()
         
         collectionView.register(uiConfig.channelList.collectionViewCell.self, forCellWithReuseIdentifier: "Cell")
-
-        if let cellSeparatorIdentifier = (collectionViewLayout as? ListCollectionViewLayout)?.separatorIdentifier {
-            collectionViewLayout.register(
+        
+        if let cellSeparatorKind = (collectionViewLayout as? ListCollectionViewLayout)?.separatorKind {
+            collectionView.register(
                 uiConfig.channelList.cellSeparatorReusableView,
-                forDecorationViewOfKind: cellSeparatorIdentifier
+                forSupplementaryViewOfKind: cellSeparatorKind,
+                withReuseIdentifier: "CellSeparatorIdentifier"
             )
         }
 
@@ -108,6 +109,19 @@ open class _ChatChannelListVC<ExtraData: ExtraDataTypes>: _ViewController,
         cell.itemView.content = (controller.channels[indexPath.row], controller.client.currentUserId)
         
         return cell
+    }
+    
+    public func collectionView(
+        _ collectionView: UICollectionView,
+        viewForSupplementaryElementOfKind kind: String,
+        at indexPath: IndexPath
+    ) -> UICollectionReusableView {
+        let cellSeparatorKind = (collectionViewLayout as? ListCollectionViewLayout)?.separatorKind ?? "CellSeparator"
+        return collectionView.dequeueReusableSupplementaryView(
+            ofKind: cellSeparatorKind,
+            withReuseIdentifier: "CellSeparatorIdentifier",
+            for: indexPath
+        ) as! _CellSeparatorReusableView<ExtraData>
     }
         
     open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
