@@ -3,6 +3,7 @@
 //
 
 import SnapshotTesting
+import SwiftUI
 import XCTest
 
 /// The default view controller size. Simulates an iPhone in portrait mode.
@@ -89,4 +90,17 @@ func AssertSnapshot(
             line: line
         )
     }
+}
+
+@available(iOS 13.0, *)
+/// Snapshot of a UIViewControllerRepresentable. All variants will be tested by default. For each variant, it will take a snapshot.
+/// This uses the default view controller screen size.
+func AssertSnaphot<View: UIViewControllerRepresentable>(
+    _ view: View,
+    line: UInt = #line,
+    file: StaticString = #file,
+    function: String = #function
+) {
+    let hostingVC = UIHostingController(rootView: view)
+    AssertSnapshot(hostingVC, line: line, file: file, function: function)
 }
